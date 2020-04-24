@@ -1,0 +1,108 @@
+.todo_section {
+  width: 400px;
+}
+.input-box {
+  width: 80%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  height: 50px;
+  font-size: 20px;
+  color: #bbb;
+}
+
+.todo_form {
+  position: relative;
+  display: flex;
+}
+
+.todo_form::after{
+  width: 80%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 5px;
+  background-color: #999;
+  animation: todo 1s ease-out both; 
+}
+
+@keyframes todo{
+  from{
+    opacity: 0;
+    width: 0;
+  }
+  to{
+    opacity: 1;
+    width: 80%;
+  }
+}
+
+.todo_menu_wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+.todo_menu_wrap:hover .todo_menu{
+  display: block;
+}
+
+.svg-setting {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0,-50%);
+}
+
+.todo_menu {
+  display: none;
+  position: absolute;
+  top: 80%;
+  right: 10%;
+  z-index: 1;
+  border-radius: 10px;
+  width: 200px;
+  padding: 5px 0;
+  background-color: rgba(27, 31, 37, 0.95);
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.todo_menu_list {
+  list-style: none;
+  line-height: 35px;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.todo_menu_list:hover{
+  background-color: rgba(75, 82, 92, 0.95);
+}
+
+/* --------------------- todo_item ------------------------ */
+.todo_item .menu .todo_item_menu{
+  display: none;
+}
+
+.todo_item .menu:hover .todo_item_menu{
+  display: block;
+  width: 100px;
+  top: 50%;
+  right: 50%;
+}
+
+.todo_list {
+  width: 100%;
+  margin-top: 30px;
+}
+.todo_item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.svg-more path {
+  fill: #bbb;
+}
