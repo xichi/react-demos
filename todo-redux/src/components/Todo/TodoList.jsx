@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 import "./TodoList.css";
 
@@ -14,8 +14,30 @@ const useInputValue = (initialValue) => {
 
 function Todo() {
   const { resetValue, ...textObj } = useInputValue("");
+  const editValueRef = useRef();
   const [todos, setTodos] = useState([]);
 
+  /* useEffect(() => {
+    const initTodos = localStorage.getItem("TodoList");
+    if(initTodos !== null){
+      setTodos(initTodos);
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem("TodoList", todos)
+  },[todos]) */
+
+  //list-menu
+  const clearAllTodos = ()=>{
+    setTodos([]);
+  }
+  
+  const clearCompletedTodos = ()=>{
+    setTodos(todos.filter(todo => todo.complete === false))
+  }
+
+  //item-menu
   const toggleTodoComplete = (e) => {
     const src = e.target;
     if (src.className === "value") {
@@ -28,6 +50,32 @@ function Todo() {
     }
   };
 
+  const completeTodo = (i) => {
+    setTodos(
+      todos.map((todo, k) => (k === i ? { ...todo, complete: true } : todo))
+    );
+  };
+
+  const editTodo = (i) => {
+    setTodos(
+      todos.map((todo, k) => (k === i ? { ...todo, editMode: true } : todo))
+    );
+  };
+
+  const finishEidtTodo = (i, value) => {
+    setTodos(
+      todos.map((todo, k) =>
+        k === i
+          ? { ...todo, editMode: false, complete: false, value: value }
+          : todo
+      )
+    );
+  };
+
+  const clearTodo = (i) => {
+    setTodos(todos.slice(0, i).concat(todos.slice(i + 1)));
+  };
+
   return (
     <div className="todo_section">
       <form
@@ -35,7 +83,7 @@ function Todo() {
         onSubmit={(e) => {
           e.preventDefault();
           setTodos([
-            { value: textObj.value, complete: false, tag: [] },
+            { value: textObj.value, complete: false, editMode: false, category: [] },
             ...todos,
           ]);
           resetValue();
@@ -61,27 +109,53 @@ function Todo() {
           ></ReactSVG>
           <div className="todo_menu">
             <ul>
-              <li className="todo_menu_list">清除今日已完成</li>
-              <li className="todo_menu_list">清除所有</li>
-              <li className="todo_menu_list">选择管理</li>
+              <li className="todo_menu_list" onClick={clearCompletedTodos}>清除今日已完成</li>
+              <li className="todo_menu_list" onClick={clearAllTodos}>清除所有</li>
             </ul>
           </div>
         </div>
       </form>
       <div className="todo_list" onClick={(e) => toggleTodoComplete(e)}>
-        {todos.map(({ value, complete }, i) => (
+        {todos.map(({ value, complete, editMode }, i) => (
           <div key={i} className="todo_item">
-            <div
-              className="value"
-              data-index={i}
-              style={{
-                textDecoration: complete ? "line-through" : "",
-                color: complete ? "#999" : "#fff",
-                cursor: "pointer",
-              }}
-            >
-              {value}
-            </div>
+            {editMode ? (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  finishEidtTodo(i, editValueRef.current.value);
+                }}
+              >
+                <input
+                  type="text"
+                  defaultValue={value}
+                  ref={editValueRef}
+                  autoFocus
+                  onBlur={() => finishEidtTodo(i, editValueRef.current.value)}
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "#999",
+                    border: "none",
+                    outline: "none",
+                    fontSize: "20px"
+                  }}
+                />
+              </form>
+            ) : (
+              <div
+                className="value"
+                data-index={i}
+                style={{
+                  textDecoration: complete ? "line-through" : "",
+                  color: complete ? "#999" : "#fff",
+                  cursor: "pointer",
+                  whiteSpace: "normal",
+                  wordBreak: "break-all",
+                  fontSize: "20px"
+                }}
+              >
+                {value}
+              </div>
+            )}
             <div className="menu" style={{ position: "relative" }}>
               <ReactSVG
                 beforeInjection={(svg) => {
@@ -95,8 +169,18 @@ function Todo() {
               ></ReactSVG>
               <div className="todo_menu todo_item_menu">
                 <ul>
-                  <li className="todo_menu_list">编辑</li>
-                  <li className="todo_menu_list">删除</li>
+                  <li
+                    className="todo_menu_list"
+                    onClick={() => completeTodo(i)}
+                  >
+                    已完成
+                  </li>
+                  <li className="todo_menu_list" onClick={() => editTodo(i)}>
+                    编辑
+                  </li>
+                  <li className="todo_menu_list" onClick={() => clearTodo(i)}>
+                    清除
+                  </li>
                   <li className="todo_menu_list">分类</li>
                 </ul>
               </div>
