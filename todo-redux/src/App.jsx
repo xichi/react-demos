@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import Todo from "./components/Todo/TodoList";
+import TodoWrap from "./components/Todo/TodoWrap";
 import "./App.css";
 import { connect } from 'react-redux';
 import { toggleModalShown } from './store/actions'
@@ -12,7 +12,7 @@ function App(props) {
   return (
     <div className="App">
       <ModalShownContext.Provider>
-        <Todo></Todo>
+        <TodoWrap></TodoWrap>
       </ModalShownContext.Provider>
     </div>
   );

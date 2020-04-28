@@ -1,0 +1,81 @@
+.todo-tab-wrap{
+  position: relative;
+  width: fit-content;
+}
+.todo-current-tab{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.todo-tab-btn{
+  border-radius: 50%;
+  height: 25px;
+  line-height: 25px;
+  width: 25px;
+}
+.todo-tab-btn:hover{
+  background-color: #666;
+}
+.todo-tab-box{
+  position: absolute;
+  top: calc(100% + 15px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  background-color: #333;
+  z-index: 200;
+  padding: 5px 0;
+  font-size: 13px;
+  border-radius: 10px;
+}
+.todo-tab-box:after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 70%;
+  transform: translate(-50%, -100%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #333;
+}
+.todo-tab-item{
+  font-size: 16px;
+  color: #efefee;
+  cursor: pointer;
+  line-height: 35px;
+}
+.todo-tab-item:hover{
+  background-color: rgba(75, 82, 92, 0.95);
+}
+
+/* tab-modal */
+.tab-Modal-wrap{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.tab-Modal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  padding: 20px 10px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  background-color: #333;
+}
+.tab-Modal li {
+  font-size: 16px;
+  line-height:25px;
+  display: flex;
+  justify-content: space-between;
+}
+.tab-Modal .input-box{
+  border: none;
+  outline: none;
+  background-color: transparent;
+}

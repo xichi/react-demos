@@ -46,10 +46,6 @@
   height: 100%;
 }
 
-.todo_menu_wrap:hover .todo_menu{
-  display: block;
-}
-
 .svg-setting {
   position: absolute;
   top: 50%;
@@ -58,7 +54,6 @@
 }
 
 .todo_menu {
-  display: none;
   position: absolute;
   top: 80%;
   right: 10%;
