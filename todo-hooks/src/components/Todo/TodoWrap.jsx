@@ -33,39 +33,67 @@ function TodoWrap() {
     });
   });
 
-  //存入获取localStorage
+  //获取localStorage
   useEffect(() => {
     const loadTodos = async () => {
-      const initTodos = await JSON.parse(localStorage.getItem("TodoList"));
-      if (initTodos) {
-        setAllTodos(initTodos);
+      const initTodoList = await JSON.parse(localStorage.getItem("TodoList"));
+      if (initTodoList) {
+        setAllTodos(initTodoList);
       }
     }
 
     loadTodos();
+
     const initTabIndex = localStorage.getItem("CurrentTab");
     const initTabs = JSON.parse(localStorage.getItem("Tabs"));
-    //const initTodos = JSON.parse(localStorage.getItem("TodoList"));
-    if(initTabs){
-      setTabs(initTabs);
-    }
-    if(initTabIndex){
-      setCurrentTab(initTabIndex);
-      setTodos(allTodos[currentTab]);
-    }
+    const initTodos = JSON.parse(localStorage.getItem("Todos"));
+    if(initTabs) setTabs(initTabs);
+    if(initTabIndex) setCurrentTab(initTabIndex);
+    if(initTodos) setTodos(initTodos);
   }, []);
 
-  useEffect(() => {
+/*   useEffect(() => {
     localStorage.setItem("TodoList", JSON.stringify(allTodos));
-    localStorage.setItem("Tabs", JSON.stringify(tabs));
     localStorage.setItem("CurrentTab", currentTab);
+    localStorage.setItem("Todos", JSON.stringify(todos));
     return () => {
-      localStorage.removeItem("TodoList");
+      
       localStorage.removeItem("Tabs");
       localStorage.removeItem("CurrentTab");
+      localStorage.removeItem("Todos");
     };
-  }, [allTodos, tabs, currentTab]);
+  }, [allTodos, , currentTab, todos]); */
 
+  //存入localStorage
+  useEffect(()=>{
+    localStorage.setItem("TodoList", JSON.stringify(allTodos));
+    return () =>{
+      localStorage.removeItem("TodoList");
+    }
+  },[allTodos])
+
+  useEffect(()=>{
+    localStorage.setItem("Tabs", JSON.stringify(tabs));
+    return () =>{
+      localStorage.removeItem("TodoList");
+    }
+  },[tabs])
+
+  useEffect(()=>{
+    localStorage.setItem("CurrentTab", currentTab);
+    return () =>{
+      localStorage.removeItem("CurrentTab");
+    }
+  },[currentTab])
+
+  useEffect(()=>{
+    localStorage.setItem("Todos", JSON.stringify(todos));
+    return () =>{
+      localStorage.removeItem("Todos");
+    }
+  },[todos])
+
+  //todos更新带动allTodos更新
   useEffect(() => {
     setAllTodos(allTodos.map((item, i) => (i === currentTab ? todos : item)));
   }, [todos]);

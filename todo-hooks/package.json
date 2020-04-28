@@ -35,5 +35,6 @@
   },
   "devDependencies": {
     "react-svg": "^11.0.19"
-  }
+  },
+  "homepage": "." 
 }
