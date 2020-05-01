@@ -15,7 +15,15 @@
 
 ## 2.todo-hooks
 
-1. 用react hooks写的简单的todo，数据存入localStorage
+1. 用react hooks写的todo，功能较为完整，数据存入localStorage。
 2. demo: [todo](http://demo.xichi.xyz/react/todo/)
 
-## 3.redux
+## 3.counter-redux
+
+1. 用redux + react-redux写的simple counter。
+2. demo: [counter](http://demo.xichi.xyz/react/counter/)
+
+## 3.todo-redux
+
+1. 用redux + react-redux写的todo，功能比较简单。
+2. demo: [todo-redux](http://demo.xichi.xyz/react/todo-redux/)

@@ -1,24 +1,33 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import TodoWrap from "./components/Todo/TodoWrap";
+import Time from "./components/Time/Time";
 import "./App.css";
-import { connect } from 'react-redux';
-import { toggleModalShown } from './store/actions'
 
-export const ModalShownContext = createContext();
+export const TimeContext = createContext();
 
-function App(props) {
-  const { modalShown, toggleModalShown } = props;
+function App() {
+  const [time, setTime] = useState(new Date());
+
+  const Timer = () => {
+    setTime(new Date());
+    setTimeout(Timer, 1000); // 循环定时调用
+  };
+
+  useEffect(() => {
+    Timer();
+  }, []);
 
   return (
     <div className="App">
-      <ModalShownContext.Provider>
+      <TimeContext.Provider value={time}>
+        <Time></Time>
         <TodoWrap></TodoWrap>
-      </ModalShownContext.Provider>
+      </TimeContext.Provider>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
+/* const mapStateToProps = (state) => {
   return {
     modalShown: state.modalShown
   }
@@ -30,4 +39,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App); */
+export default App;

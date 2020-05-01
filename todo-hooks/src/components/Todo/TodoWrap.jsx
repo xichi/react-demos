@@ -14,7 +14,7 @@ const useInputValue = (initialValue) => {
 };
 
 function TodoWrap() {
-  const [tabs, setTabs] = useState(["Today", "All", "Done"]);
+  const [tabs, setTabs] = useState(["Today", "Week", "Long Period"]);
   const [currentTab, setCurrentTab] = useState(0);
   const [allTodos, setAllTodos] = useState([[], [], []]);
   const [todos, setTodos] = useState([]);
@@ -44,25 +44,13 @@ function TodoWrap() {
 
     loadTodos();
 
-    const initTabIndex = localStorage.getItem("CurrentTab");
+    const initTabIndex = Number(localStorage.getItem("CurrentTab"));
     const initTabs = JSON.parse(localStorage.getItem("Tabs"));
     const initTodos = JSON.parse(localStorage.getItem("Todos"));
     if(initTabs) setTabs(initTabs);
     if(initTabIndex) setCurrentTab(initTabIndex);
     if(initTodos) setTodos(initTodos);
   }, []);
-
-/*   useEffect(() => {
-    localStorage.setItem("TodoList", JSON.stringify(allTodos));
-    localStorage.setItem("CurrentTab", currentTab);
-    localStorage.setItem("Todos", JSON.stringify(todos));
-    return () => {
-      
-      localStorage.removeItem("Tabs");
-      localStorage.removeItem("CurrentTab");
-      localStorage.removeItem("Todos");
-    };
-  }, [allTodos, , currentTab, todos]); */
 
   //存入localStorage
   useEffect(()=>{
@@ -130,7 +118,7 @@ function TodoWrap() {
       const i = parseInt(src.dataset.index);
       setTodos(
         todos.map((todo, k) =>
-          k === i ? { ...todo, complete: !todo.complete } : todo
+          k === i ? { ...todo, complete: !todo.complete} : todo
         )
       );
     }
@@ -138,7 +126,7 @@ function TodoWrap() {
 
   const completeTodo = (i) => {
     setTodos(
-      todos.map((todo, k) => (k === i ? { ...todo, complete: true } : todo))
+      todos.map((todo, k) => (k === i ? { ...todo, complete: true} : todo))
     );
   };
 
@@ -219,7 +207,6 @@ function TodoWrap() {
                 value: textObj.value,
                 complete: false,
                 editMode: false,
-                category: [],
               },
               ...todos,
             ]);
@@ -328,7 +315,6 @@ function TodoWrap() {
                     <li className="todo_menu_list" onClick={() => clearTodo(i)}>
                       清除
                     </li>
-                    <li className="todo_menu_list">分类</li>
                   </ul>
                 </div>
               </div>

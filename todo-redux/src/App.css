@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.input-box {
+  width: 80%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  height: 50px;
+  font-size: 20px;
+  color: #bbb;
+}
+
+.todo_form {
+  position: relative;
+  display: flex;
+}
+
+.todo_form::after {
+  width: 80%;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 5px;
+  background-color: #999;
+  animation: todo 1s ease-out both;
+}
+
+@keyframes todo {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+
+  to {
+    opacity: 1;
+    width: 80%;
+  }
+}
+
+.clean-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(100%, -50%);
+}
+
+.clean-btn button {
+  background-color: teal;
+  color: #efefef;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+}
