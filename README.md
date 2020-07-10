@@ -15,7 +15,11 @@
 1. 用redux + react-redux写的simple counter。
 2. demo: [counter](http://demo.xichi.xyz/react/counter/)
 
-## 3.todo-redux
+## 4.todo-redux
 
 1. 用redux + react-redux写的todo，功能比较简单。
 2. demo: [todo-redux](http://demo.xichi.xyz/react/todo-redux/)
+
+## 5.notes-react-gun.js
+
+1. react app with gun.js

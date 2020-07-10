@@ -3,6 +3,7 @@ const defaultState = {
 };
 
 const todos = (state = defaultState, action) => {
+  console.log(state, action)
   const todos = state.todos;
   switch (action.type) {
     case 'ADD_TODO':
