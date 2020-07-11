@@ -22,4 +22,8 @@
 
 ## 5.notes-react-gun.js
 
-1. react app with gun.js
+1. react app with gun.js 开源项目，不是我写的（
+2. 部署在[notes](http://demo.xichi.xyz/dapp/notes/)
+3. 我部署的两个peers:
+   + http://api.xichi.xyz:8765/gun
+   + https://safe-citadel-45310.herokuapp.com/gun
