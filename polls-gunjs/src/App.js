@@ -9,6 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.gun = Gun('http://api.xichi.xyz:8765/gun')
+    window.gun = this.gun
   }
   
   render() {
