@@ -15,39 +15,10 @@ export default class Poll extends Component {
   }
 
   componentWillMount() {
-/*     let polls = [];
-    this.gun.map().on(data => {
-      let poll = {
-        question: data.question,
-        sender: data.sender,
-        time: data.time
-      };
-      console.log(data);
-      if (data.options) {
-        console.log(1);
-        this.gun.map().get('options').on(data => {
-          delete data._;
-          poll.options = data
-          console.log(data);
-          //console.log(poll.options);
-          //console.log(poll);
-        })
-      }
-      if (data.results) {
-        this.gun.map().get('results').on(data => {
-          delete data._;
-          poll['results'] = data
-        })
-      }
-      //console.log(poll);
-      polls.push(poll);
-    });
-    this.setState({
-      polls: polls
-    }) */
     let polls = [];
-    this.gun.map().on((data,key) => {
+    this.gun.map().on((data, key) => {
       let poll = {
+        key: key,
         question: data.question,
         sender: data.sender,
         time: data.time
@@ -85,6 +56,19 @@ export default class Poll extends Component {
     })
   }
 
+  vote = (key, index, oIndex) => {
+    const results = this.state.polls[index].results;
+    const count = ++Object.values(results)[oIndex];
+    this.setState({polls: this.state.polls.map((poll, id) => (id === index ? {
+      ...poll,
+      results: {
+        ...poll.results,
+        [oIndex]: count
+      }
+    } : poll))})
+    this.gun.get(key).get('results').put({ ...results, [oIndex]: count })
+  }
+
   render() {
     return (<>
       <form onSubmit={this.send}>
@@ -107,9 +91,10 @@ export default class Poll extends Component {
             <div>{poll.question}</div>
             <ul>
               {
-                //console.log(poll.options ? Object.values(poll.options) : null);
-                poll.options ? Object.values(poll.options).map((option, index) => (
-                  <li key={index}>{option}</li>
+                poll.options ? Object.values(poll.options).map((option, oIndex) => (
+                  <li key={oIndex}>{option}
+                    {poll.results ? <span onClick={() => this.vote(poll.key, index, oIndex)}>{Object.values(poll.results)[oIndex]}</span> : null}
+                  </li>
                 )) : null
               }
             </ul>

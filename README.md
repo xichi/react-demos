@@ -27,3 +27,7 @@
 3. 我部署的两个peers:
    + http://api.xichi.xyz:8765/gun
    + https://safe-citadel-45310.herokuapp.com/gun
+
+## 6. polls-gunjs
+1. react app with gun.js 
+2. 官方example中的一个，我加上了投票部分。没有删除原有的chat、todo、json部分，是为了对照学习（
